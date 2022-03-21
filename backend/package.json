@@ -1,0 +1,34 @@
+{
+  "name": "full-stack-demo-app",
+  "version": "0.0.1",
+  "description": "full stack demo app",
+  "main": "src/index.ts",
+  "private": true,
+  "workspaces": [
+    "backend"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && npx -p typescript tsc -p tsconfig.json",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "demo"
+  ],
+  "author": "andrea.ceccarelli@facile.it",
+  "license": "MIT",
+  "prettier": "eslint-config-facile/prettierrc.json",
+  "dependencies": {
+    "fastify": "^3.27.4",
+    "fastify-cors": "^6.0.3",
+    "fastify-mysql": "^2.1.0",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@types/mysql": "^2.15.21",
+    "@types/node": "^17.0.21",
+    "eslint": "^8.11.0",
+    "eslint-config-facile": "^0.5.0",
+    "prettier": "^2.6.0",
+    "typescript": "^4.6.2"
+  }
+}

@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  feapp:
+    image: node:17-alpine3.15
+    user: "node"
+    container_name: fullstack-fe
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=$NODE_ENV
+    volumes:
+      - ./frontend:/home/node/app
+    ports:
+      - "127.0.0.1:8080:8080"
+    command: "tail -f /dev/null"
+    networks:
+      fullstack-demo-app:
+        aliases:
+         - "node-app"
+
+  nodeapp:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    user: "node"
+    container_name: fullstack-node
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=$NODE_ENV
+    volumes:
+      - ./backend:/home/node/app
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - db
+    command: "tail -f /dev/null"
+    networks:
+      fullstack-demo-app:
+        aliases:
+         - "node-app"
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: fullstack-db
+    restart: always
+    ports:
+      - 127.0.0.1:3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    networks:
+      fullstack-demo-app:
+        aliases:
+          - "db-mysql"
+
+networks:
+ fullstack-demo-app:

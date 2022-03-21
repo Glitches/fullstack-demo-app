@@ -1,0 +1,6 @@
+{
+   "private": true,
+   "name": "full-stack-demo-app",
+   "workspaces": ["backend", "frontend"],
+   "scripts": {}
+}
