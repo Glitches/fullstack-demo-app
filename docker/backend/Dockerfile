@@ -1,4 +1,10 @@
- # specify the node base image with your desired version node:<version>
-FROM node:17-alpine3.15
-# replace this with your application's default port
+FROM node:17-alpine3.15 as be-development
+
 EXPOSE 3000
+
+RUN  mkdir /home/node/app
+WORKDIR /home/node/app
+
+COPY backend .
+
+RUN yarn install && yarn build

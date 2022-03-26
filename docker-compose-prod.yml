@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   feapp:
@@ -10,11 +10,10 @@ services:
       - NODE_ENV=$NODE_ENV
     ports:
       - "127.0.0.1:8080:80"
-    command: "tail -f /dev/null"
     networks:
       fullstack-demo-app:
         aliases:
-         - "node-app"
+          - "fe-app"
 
   nodeapp:
     build:
@@ -27,18 +26,30 @@ services:
       - NODE_ENV=$NODE_ENV
     volumes:
       - ./backend:/home/node/app
+    expose:
+      - "3000"
     ports:
       - "127.0.0.1:3000:3000"
-    depends_on:
-      - db
-    command: "tail -f /dev/null"
+    command: "yarn start"
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 10
+        window: 120s
     networks:
       fullstack-demo-app:
         aliases:
-         - "node-app"
+          - "node-app"
 
   db:
-    image: mysql
+    image: mysql:8.0.28
     command: --default-authentication-plugin=mysql_native_password
     container_name: fullstack-db
     restart: always
@@ -49,10 +60,20 @@ services:
       MYSQL_DATABASE: $MYSQL_DATABASE
       MYSQL_USER: $MYSQL_USER
       MYSQL_PASSWORD: $MYSQL_PASSWORD
+    volumes:
+      - fullstack-data:/var/lib/mysql
+    healthcheck:
+      test: mysql $MYSQL_DATABASE --user=$MYSQL_USER --password='$MYSQL_PASSWORD' --silent --execute "SELECT 1;"
+      interval: 30s
+      timeout: 10s
+      retries: 5
     networks:
       fullstack-demo-app:
         aliases:
           - "db-mysql"
 
 networks:
- fullstack-demo-app:
+  fullstack-demo-app:
+
+volumes:
+  fullstack-data:
