@@ -1,7 +1,7 @@
-version: "3.8"
+version: "3.9"
 
 services:
-  feapp:
+  fullstack-fe:
     image: node:17-alpine3.15
     user: "node"
     container_name: fullstack-fe
@@ -12,18 +12,14 @@ services:
       - ./frontend:/home/node/app
     ports:
       - "127.0.0.1:8080:8080"
-    command: "tail -f /dev/null"
+    command: "yarn dev"
     networks:
       fullstack-demo-app:
-        aliases:
-          - "node-app"
 
-  nodeapp:
-    build:
-      context: .
-      dockerfile: docker/backend/Dockerfile
+  fullstack-be:
+    image: node:17-alpine3.15
     user: "node"
-    container_name: fullstack-node
+    container_name: fullstack-be
     working_dir: /home/node/app
     environment:
       - NODE_ENV=$NODE_ENV
@@ -32,20 +28,18 @@ services:
     ports:
       - "127.0.0.1:3000:3000"
     depends_on:
-      - db
+      - fullstack-db
     command: "tail -f /dev/null"
     networks:
       fullstack-demo-app:
-        aliases:
-          - "node-app"
 
-  db:
+  fullstack-db:
     image: mysql:8.0.28
     command: --default-authentication-plugin=mysql_native_password
-    container_name: fullstack-db
+    container_name: $MYSQL_HOST
     restart: always
     ports:
-      - 127.0.0.1:3306:3306
+      - 127.0.0.1:$MYSQL_PORT:3306
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
@@ -58,8 +52,6 @@ services:
       retries: 5
     networks:
       fullstack-demo-app:
-        aliases:
-          - "db-mysql"
 
 networks:
   fullstack-demo-app:
