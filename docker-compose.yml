@@ -12,7 +12,7 @@ services:
       - ./frontend:/home/node/app
     ports:
       - "127.0.0.1:8080:8080"
-    command: "yarn dev"
+    command: "tail -f /dev/null"
     networks:
       fullstack-demo-app:
 
@@ -22,7 +22,12 @@ services:
     container_name: fullstack-be
     working_dir: /home/node/app
     environment:
-      - NODE_ENV=$NODE_ENV
+      NODE_ENV: $NODE_ENV
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_HOST: $MYSQL_HOST
+      MYSQL_PORT: $MYSQL_PORT
     volumes:
       - ./backend:/home/node/app
     ports:
@@ -45,6 +50,8 @@ services:
       MYSQL_DATABASE: $MYSQL_DATABASE
       MYSQL_USER: $MYSQL_USER
       MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_HOST: $MYSQL_HOST
+      MYSQL_PORT: $MYSQL_PORT
     healthcheck:
       test: mysql $MYSQL_DATABASE --user=$MYSQL_USER --password='$MYSQL_PASSWORD' --silent --execute "SELECT 1;"
       interval: 30s

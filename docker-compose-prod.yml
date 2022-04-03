@@ -1,5 +1,14 @@
 version: "3.9"
 
+x-env: &env
+  environment:
+    MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+    MYSQL_DATABASE: $MYSQL_DATABASE
+    MYSQL_USER: $MYSQL_USER
+    MYSQL_PASSWORD: $MYSQL_PASSWORD
+    MYSQL_HOST: $MYSQL_HOST
+    MYSQL_PORT: $MYSQL_PORT
+
 services:
   feapp:
     build:
@@ -22,15 +31,12 @@ services:
     user: "node"
     container_name: fullstack-node
     working_dir: /home/node/app
-    environment:
-      - NODE_ENV=$NODE_ENV
-    volumes:
-      - ./backend:/home/node/app
+    <<: *env
     expose:
       - "3000"
     ports:
       - "127.0.0.1:3000:3000"
-    command: "yarn start"
+    command: "sh ./delay.sh"
     healthcheck:
       test: ["CMD", "curl", "http://localhost:3000/health"]
       interval: 30s
@@ -41,8 +47,10 @@ services:
       restart_policy:
         condition: on-failure
         delay: 10s
-        max_attempts: 5
+        max_attempts: 20
         window: 120s
+    depends_on:
+      - db
     networks:
       fullstack-demo-app:
         aliases:
@@ -55,11 +63,7 @@ services:
     restart: always
     ports:
       - 127.0.0.1:3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      MYSQL_DATABASE: $MYSQL_DATABASE
-      MYSQL_USER: $MYSQL_USER
-      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    <<: *env
     volumes:
       - fullstack-data:/var/lib/mysql
     healthcheck:
