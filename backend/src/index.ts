@@ -36,12 +36,12 @@ server.register(fastifyMySQL, {
     connectionString: `mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}`,
 })
 
-server.get('/health', async (req, reply) => {
+server.get('/health', async (_req, reply) => {
     reply.code(200).header('Content-Type', 'application/json; charset=utf-8').send({ hello: 'world' })
 })
 
 server.get('/user/:id', async (req, _reply) => {
-    const connection = await server.mysql
+    const connection = server.mysql
     server.log.info((req.params as GetUserParams).id)
     const [rows] = await connection.query('SELECT id, name, last_name FROM demo WHERE id=?', [
         (req.params as GetUserParams).id,
@@ -58,7 +58,7 @@ server.post('/user', async (req, reply) => {
         throw new Error('bad body')
     }
 
-    const connection = await server.mysql
+    const connection = server.mysql
     const result = await connection.query('INSERT INTO demo (name,last_name) VALUES (?, ?)', [
         body.name,
         body.last_name,
@@ -75,5 +75,6 @@ server.listen({ port: 3000, host: '0.0.0.0' }, (err, address) => {
         process.exit()
     }
 
+    // eslint-disable-next-line no-console
     console.log(`Server listening at ${address}`)
 })

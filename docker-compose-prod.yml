@@ -10,6 +10,20 @@ x-env: &env
     MYSQL_PORT: $MYSQL_PORT
 
 services:
+  proxyapp:
+    build:
+      context: .
+      dockerfile: docker/proxy-pass/Dockerfile
+    ports:
+      - "127.0.0.1:80:80"
+    depends_on:
+      - feapp
+      - beapp
+    networks:
+      fullstack-demo-app:
+        aliases:
+          - "proxy-pass"
+
   feapp:
     build:
       context: .
@@ -17,14 +31,12 @@ services:
     container_name: fullstack-fe
     environment:
       - NODE_ENV=$NODE_ENV
-    ports:
-      - "127.0.0.1:8080:80"
     networks:
       fullstack-demo-app:
         aliases:
           - "fe-app"
 
-  nodeapp:
+  beapp:
     build:
       context: .
       dockerfile: docker/backend/Dockerfile
@@ -32,10 +44,6 @@ services:
     container_name: fullstack-node
     working_dir: /home/node/app
     <<: *env
-    expose:
-      - "3000"
-    ports:
-      - "127.0.0.1:3000:3000"
     command: "sh ./delay.sh"
     healthcheck:
       test: ["CMD", "curl", "http://localhost:3000/health"]
@@ -61,8 +69,8 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     container_name: fullstack-db
     restart: always
-    ports:
-      - 127.0.0.1:3306:3306
+    # ports:
+    #   - 127.0.0.1:3306:3306
     <<: *env
     volumes:
       - fullstack-data:/var/lib/mysql
