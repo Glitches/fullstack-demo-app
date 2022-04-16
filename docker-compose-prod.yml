@@ -1,14 +1,5 @@
 version: "3.9"
 
-x-env: &env
-  environment:
-    MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-    MYSQL_DATABASE: $MYSQL_DATABASE
-    MYSQL_USER: $MYSQL_USER
-    MYSQL_PASSWORD: $MYSQL_PASSWORD
-    MYSQL_HOST: $MYSQL_HOST
-    MYSQL_PORT: $MYSQL_PORT
-
 services:
   proxyapp:
     build:
@@ -17,33 +8,22 @@ services:
     ports:
       - "127.0.0.1:80:80"
     depends_on:
-      - feapp
-      - beapp
+      - fullstack-fe
+      - fullstack-be
     networks:
       fullstack-demo-app:
         aliases:
           - "proxy-pass"
 
-  feapp:
+  fullstack-fe:
     build:
       context: .
       dockerfile: docker/frontend/Dockerfile
-    container_name: fullstack-fe
-    environment:
-      - NODE_ENV=$NODE_ENV
-    networks:
-      fullstack-demo-app:
-        aliases:
-          - "fe-app"
 
-  beapp:
+  fullstack-be:
     build:
       context: .
       dockerfile: docker/backend/Dockerfile
-    user: "node"
-    container_name: fullstack-node
-    working_dir: /home/node/app
-    <<: *env
     command: "sh ./delay.sh"
     healthcheck:
       test: ["CMD", "curl", "http://localhost:3000/api/health"]
@@ -57,35 +37,10 @@ services:
         delay: 10s
         max_attempts: 20
         window: 120s
-    depends_on:
-      - db
-    networks:
-      fullstack-demo-app:
-        aliases:
-          - "node-app"
 
-  db:
-    image: mysql:8.0.28
-    command: --default-authentication-plugin=mysql_native_password
-    container_name: fullstack-db
-    restart: always
-    # ports:
-    #   - 127.0.0.1:3306:3306
-    <<: *env
+  fullstack-db:
     volumes:
       - fullstack-data:/var/lib/mysql
-    healthcheck:
-      test: mysql $MYSQL_DATABASE --user=$MYSQL_USER --password='$MYSQL_PASSWORD' --silent --execute "SELECT 1;"
-      interval: 30s
-      timeout: 10s
-      retries: 5
-    networks:
-      fullstack-demo-app:
-        aliases:
-          - "db-mysql"
-
-networks:
-  fullstack-demo-app:
 
 volumes:
   fullstack-data:

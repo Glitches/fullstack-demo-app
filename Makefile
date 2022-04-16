@@ -3,7 +3,7 @@ include .env
 .PHONY: dev-start dev-server-be dev-server-fe dev-migrations prod-setup prod-start
 
 dev-start:
-		docker-compose --env-file .env up -d
+		docker-compose --env-file .env -f docker-compose-common.yml -f docker-compose-dev.yml up -d
 
 dev-server-be:
 		docker exec -u node -ti fullstack-be yarn server
@@ -16,7 +16,7 @@ dev-migrations:
 		docker exec -i fullstack-db mysql --user=root --password="$(MYSQL_ROOT_PASSWORD)" --database="$(MYSQL_DATABASE)" < sql/fixtures.sql
 
 prod-setup:
-		docker-compose -f docker-compose-prod.yml build
+		docker-compose --env-file .env -f docker-compose-common.yml -f docker-compose-prod.yml build
 
 prod-start:
-		docker-compose -f docker-compose-prod.yml up
+		docker-compose --env-file .env -f docker-compose-common.yml -f docker-compose-prod.yml up
