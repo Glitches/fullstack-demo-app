@@ -1,6 +1,6 @@
 {
     "extends": "facile/react",
     "parserOptions": {
-        "project": "./tsconfig.json"
+        "project": "./frontend/tsconfig.json"
     }
 }

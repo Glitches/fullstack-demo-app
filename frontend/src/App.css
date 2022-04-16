@@ -10,6 +10,7 @@
 
 .App-header {
   background-color: #282c34;
+  font-weight: 700;
   min-height: 10vh;
   width: 100vw;
   display: flex;
@@ -20,19 +21,65 @@
   color: white;
 }
 
-table {
-  margin: 10rem 0;
-  width: 40vw;
-}
-td {
-  width: 15vw;
-  border: 0.1rem solid #282c34;
-}
-
 .App-link {
   color: #61dafb;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+ }
+
+ form > * {
+  padding: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  font-size: larger;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 50vw;
+}
+
+input {
+  display: inline;
+  width: 60%;
+  height: 2.5rem;
+}
+
+input:focus {
+  border: #282c34 solid 3px;
+}
+
+.table-wrapper {
+  margin: 2.5rem 0;
+}
+
+table {
+  width: 40vw;
+}
+
+td {
+  padding: 0.5rem 0;
+  width: 15vw;
+}
+
+
 button {
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
   font-size: calc(10px + 2vmin);
+  padding: 0.5rem 1rem;
+  width: 100%;
+
+}
+
+button:hover {
+  background-color: #282c34;
+  color: white;
 }
