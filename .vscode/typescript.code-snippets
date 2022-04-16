@@ -1,0 +1,125 @@
+{
+    "Import option": {
+        "prefix": "importOption",
+        "body": ["import * as O from 'fp-ts/Option'", "import { pipe } from 'fp-ts/function'"],
+        "description": "Import option fp-ts v2.x"
+    },
+    "Import either": {
+        "prefix": "importEither",
+        "body": ["import * as E from 'fp-ts/Either'"],
+        "description": "Import either fp-ts v2.x"
+    },
+    "Import moment": {
+        "prefix": "importMoment",
+        "body": ["import moment from 'moment-timezone'"],
+        "description": "Import moment-timezone"
+    },
+    "e2eTest": {
+        "prefix": "e2eTestAutomatic",
+        "body": [
+            "import puppeteer from 'puppeteer'",
+            "// add just import path if necessary",
+            "import * as utility from '../../../utility'",
+            "import { buildTaskActions } from '../../../utility/e2eAutomation'",
+            "",
+            "describe('$1', () => {",
+            "\tlet browser: puppeteer.Browser",
+            "",
+            "\tbeforeAll(async () => {",
+            "\t\tjasmine.DEFAULT_TIMEOUT_INTERVAL = 80000",
+            "\t\tbrowser = await utility.buildLoggedBrowser()",
+            "\t})",
+            "",
+            "\ttest('$2', async () => {",
+            "\t\tconst page = await browser.newPage()",
+            "\t\tawait buildTaskActions(page, [])",
+            "\t})",
+            "",
+            "\tafterAll(async () => {",
+            "\t\tbrowser.close()",
+            "\t})",
+            "})"
+        ],
+        "description": "Create skeleton of an e2e test"
+    },
+    "Apply": {
+        "prefix": "+AP",
+        "body": ["import * as AP from 'fp-ts/Apply'"],
+        "description": "Apply as Apply"
+    },
+    "Array": {
+        "prefix": "+A",
+        "body": ["import * as A from 'fp-ts/Array'"],
+        "description": "Array as Array"
+    },
+    "Either": {
+        "prefix": "+E",
+        "body": ["import * as E from 'fp-ts/Either'"],
+        "description": "Either as Either"
+    },
+    "Eq": {
+        "prefix": "+EQ",
+        "body": ["import * as EQ from 'fp-ts/Eq'"],
+        "description": "Eq as Eq"
+    },
+    "NonEmptyArray": {
+        "prefix": "+NOE",
+        "body": ["import * as NEA from 'fp-ts/NonEmptyArray'"],
+        "description": "NonEmptyArray as NonEmptyArray"
+    },
+    "Ord": {
+        "prefix": "+ORD",
+        "body": ["import * as ORD from 'fp-ts/Ord'"],
+        "description": "Ordering as Ord"
+    },
+    "Option": {
+        "prefix": "+O",
+        "body": ["import * as O from 'fp-ts/Option'"],
+        "description": "Option as Option"
+    },
+    "pipe": {
+        "prefix": "+p",
+        "body": ["import { pipe } from 'fp-ts/function'"],
+        "description": "pipe as pipe"
+    },
+    "SemiGroup": {
+        "prefix": "+SG",
+        "body": ["import * as SG from 'fp-ts/Semigroup'"],
+        "description": "Semigroup as Semigroup"
+    },
+    "Task": {
+        "prefix": "+T",
+        "body": ["import * as T from 'fp-ts/Task'"],
+        "description": "Task as Task"
+    },
+    "ReaderTaskEither": {
+        "prefix": "+RTE",
+        "body": ["import * as RTE from 'fp-ts/ReaderTaskEither'"],
+        "description": "ReaderTaskEither as ReaderTaskEither"
+    },
+    "ReadonlyArray": {
+        "prefix": "+ROA",
+        "body": ["import * as ROA from 'fp-ts/ReadonlyArray'"],
+        "description": "ROA as ReadonlyArray"
+    },
+    "TaskEither": {
+        "prefix": "+TE",
+        "body": ["import * as TE from 'fp-ts/TaskEither'"],
+        "description": "TaskEither as TaskEither"
+    },
+    "io-ts": {
+        "prefix": "+io",
+        "body": ["import * as t from 'io-ts'"],
+        "description": "io-ts as io-ts"
+    },
+    "Predicate": {
+        "prefix": "+PR",
+        "body": ["import * as PR from 'fp-ts/Predicate'"],
+        "description": "Predicate as Predicate"
+    },
+    "Refinement": {
+        "prefix": "+R",
+        "body": ["import * as R from 'fp-ts/Refinement'"],
+        "description": "Refinement as Refinement"
+    }
+}

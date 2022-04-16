@@ -1,0 +1,114 @@
+{
+    "Apply": {
+        "prefix": "+AP",
+        "body": [
+            "import * as AP from 'fp-ts/Apply'"
+        ],
+        "description": "Apply as Apply"
+    },
+    "Array": {
+        "prefix": "+A",
+        "body": [
+            "import * as A from 'fp-ts/Array'"
+        ],
+        "description": "Array as Array"
+    },
+    "Either": {
+        "prefix": "+E",
+        "body": [
+            "import * as E from 'fp-ts/Either'"
+        ],
+        "description": "Either as Either"
+    },
+    "Eq": {
+        "prefix": "+EQ",
+        "body": [
+            "import * as EQ from 'fp-ts/Eq'"
+        ],
+        "description": "Eq as Eq"
+    },
+    "NonEmptyArray": {
+        "prefix": "+NOE",
+        "body": [
+            "import * as NEA from 'fp-ts/NonEmptyArray'"
+        ],
+        "description": "NonEmptyArray as NonEmptyArray"
+    },
+    "Ord": {
+        "prefix": "+ORD",
+        "body": [
+            "import * as ORD from 'fp-ts/Ord'"
+        ],
+        "description": "Ordering as Ord"
+    },
+    "Option": {
+        "prefix": "+O",
+        "body": [
+            "import * as O from 'fp-ts/Option'"
+        ],
+        "description": "Option as Option"
+    },
+    "pipe": {
+        "prefix": "+p",
+        "body": [
+            "import { pipe } from 'fp-ts/function'"
+        ],
+        "description": "pipe as pipe"
+    },
+    "SemiGroup": {
+        "prefix": "+SG",
+        "body": [
+            "import * as SG from 'fp-ts/Semigroup'"
+        ],
+        "description": "Semigroup as Semigroup"
+    },
+    "Task": {
+        "prefix": "+T",
+        "body": [
+            "import * as T from 'fp-ts/Task'"
+        ],
+        "description": "Task as Task"
+    },
+    "ReaderTaskEither": {
+        "prefix": "+RTE",
+        "body": [
+            "import * as RTE from 'fp-ts/ReaderTaskEither'"
+        ],
+        "description": "ReaderTaskEither as ReaderTaskEither"
+    },
+    "ReadonlyArray": {
+        "prefix": "+ROA",
+        "body": [
+            "import * as ROA from 'fp-ts/ReadonlyArray'"
+        ],
+        "description": "ROA as ReadonlyArray"
+    },
+    "TaskEither": {
+        "prefix": "+TE",
+        "body": [
+            "import * as TE from 'fp-ts/TaskEither'"
+        ],
+        "description": "TaskEither as TaskEither"
+    },
+    "io-ts": {
+        "prefix": "+io",
+        "body": [
+            "import * as t from 'io-ts'"
+        ],
+        "description": "io-ts as io-ts"
+    },
+    "Predicate": {
+        "prefix": "+PR",
+        "body": [
+            "import * as PR from 'fp-ts/Predicate'"
+        ],
+        "description": "Predicate as Predicate"
+    },
+    "Refinement": {
+        "prefix": "+R",
+        "body": [
+            "import * as R from 'fp-ts/Refinement'"
+        ],
+        "description": "Refinement as Refinement"
+    },
+}
