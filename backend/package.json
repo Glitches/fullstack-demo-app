@@ -23,6 +23,8 @@
         "fastify-cors": "^6.0.3",
         "fastify-env": "^2.1.1",
         "fastify-mysql": "^2.1.0",
+        "fp-ts": "^2.11.9",
+        "io-ts": "^2.2.16",
         "mysql": "^2.18.1"
     },
     "devDependencies": {
