@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  fullstack-fe:
+    image: node:17-alpine3.15
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ./frontend:/home/node/app
+    ports:
+      - "127.0.0.1:8080:8080"
+    command: "tail -f /dev/null"
+
+  fullstack-be:
+    image: node:17-alpine3.15
+    volumes:
+      - ./backend:/home/node/app
+    ports:
+      - "127.0.0.1:3000:3000"
+    command: "tail -f /dev/null"
+    networks:
+      fullstack-demo-app:
+        aliases:
+          - "node-app"
+
+  fullstack-db:
+    ports:
+      - 127.0.0.1:$MYSQL_PORT:3306
+
