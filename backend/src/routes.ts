@@ -34,7 +34,7 @@ export async function routes(
         return rows
     })
 
-    server.get('/user', async (req, reply) => {
+    server.get('/user', async (_req, reply) => {
         const connection = server.mysql
 
         return await pipe(

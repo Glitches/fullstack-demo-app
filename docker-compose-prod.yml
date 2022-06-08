@@ -24,6 +24,7 @@ services:
     build:
       context: .
       dockerfile: docker/backend/Dockerfile
+      target: be-prod
     command: "sh ./delay.sh"
     healthcheck:
       test: ["CMD", "curl", "http://localhost:3000/api/health"]

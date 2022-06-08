@@ -11,16 +11,19 @@ x-env: &env
 
 services:
   fullstack-fe:
+    user: "${UID}:${GID}"
     container_name: fullstack-fe
     environment:
       - NODE_ENV=$NODE_ENV
+    depends_on:
+      - fullstack-be
     networks:
       fullstack-demo-app:
         aliases:
           - "fe-app"
 
   fullstack-be:
-    user: "node"
+    user: "${UID}:${GID}"
     container_name: fullstack-be
     working_dir: /home/node/app
     <<: *env
@@ -29,7 +32,7 @@ services:
     networks:
       fullstack-demo-app:
         aliases:
-          - "node-app"
+          - "be-app"
 
   fullstack-db:
     image: mysql:8.0.28

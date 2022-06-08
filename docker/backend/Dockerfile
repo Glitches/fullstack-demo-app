@@ -1,9 +1,7 @@
-FROM node:17-alpine3.15 as be-development
+FROM node:17-alpine3.15 as be-build
 
-EXPOSE 3000
-
-RUN  mkdir /home/node/app
-WORKDIR /home/node/app
+RUN  mkdir /home/node
+WORKDIR /home/node
 
 COPY backend .
 
@@ -16,8 +14,8 @@ EXPOSE 3000
 RUN apk add --update curl && \
   rm -rf /var/cache/apk/*
 
-COPY --from=be-development /home/node/app/delay.sh /home/node/app/delay.sh
-RUN chmod +X /home/node/app/delay.sh
+COPY --from=be-build /home/node/delay.sh /home/node/delay.sh
+RUN chmod +X /home/node/delay.sh
 
-COPY --from=be-development /home/node/app/node_modules /home/node/app/node_modules
-COPY --from=be-development /home/node/app/dist /home/node/app/
+COPY --from=be-build /home/node/node_modules /home/node/node_modules
+COPY --from=be-build /home/node/dist /home/node/
