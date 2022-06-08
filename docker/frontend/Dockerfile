@@ -1,5 +1,5 @@
 # Creo il dockerfile che fa la build per produzione
-FROM node:17-alpine3.15 as fe-build
+FROM node:18.3.0-alpine3.15 as fe-build
 
 RUN  mkdir /home/node
 WORKDIR /home/node

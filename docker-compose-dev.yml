@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   fullstack-fe:
-    image: node:17-alpine3.15
+    build: ${PWD}/docker/devel
     working_dir: /home/node/app
     volumes:
       - ./frontend:/home/node/app
@@ -11,7 +11,7 @@ services:
     command: "tail -f /dev/null"
 
   fullstack-be:
-    image: node:17-alpine3.15
+    build: ${PWD}/docker/devel
     volumes:
       - ./backend:/home/node/app
     ports:

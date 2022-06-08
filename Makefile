@@ -1,6 +1,9 @@
 include .env
 
-.PHONY: dev-start dev-server-be dev-server-fe dev-migrations prod-setup prod-start
+.PHONY: dev-setup dev-start dev-server-be dev-server-fe dev-migrations prod-setup prod-start
+
+dev-setup:
+		docker-compose --env-file .env -f docker-compose-common.yml -f docker-compose-dev.yml build
 
 dev-start:
 		docker-compose --env-file .env -f docker-compose-common.yml -f docker-compose-dev.yml up -d

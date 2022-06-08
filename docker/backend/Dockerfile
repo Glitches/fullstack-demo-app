@@ -1,4 +1,4 @@
-FROM node:17-alpine3.15 as be-build
+FROM node:18.3.0-alpine3.15 as be-build
 
 RUN  mkdir /home/node
 WORKDIR /home/node
